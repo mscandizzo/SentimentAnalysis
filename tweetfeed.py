@@ -16,3 +16,6 @@ class tweetfeed:
         self.auth = tweepy.OAuthHandler(self.consumer_key, self.consumer_secret)
         self.auth.set_access_token(self.access_token, self.access_token_secret)
         self.api = tweepy.API(self.auth)
+
+    def tweet_search(self, string, rpp = 5, page = 5):
+        return self.api.search(q=string,rpp= rpp,page =page)

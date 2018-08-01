@@ -1,5 +1,6 @@
 from pymongo import MongoClient
 from urllib.parse import quote_plus
+from functools import wraps
 
 
 def get_mongo_db(db_name, host = 'localhost',\
@@ -13,7 +14,6 @@ def get_mongo_db(db_name, host = 'localhost',\
         conn = MongoClient(uri)
     else: 
         conn = MongoClient(host, port)
-    
     return conn[db_name]
 
 def db_to_list(db, collection):
@@ -23,3 +23,9 @@ def db_to_list(db, collection):
     lista = list(resultado)
 
     return lista
+
+def search_field(field=None,collection=None,**kwargs):
+    conn = get_mongo_db(**kwargs)[collection]
+    return list(conn.find({},{field:1,"_id":0}))
+
+

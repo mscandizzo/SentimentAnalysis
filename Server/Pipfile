@@ -12,6 +12,11 @@ pandas = "*"
 flask-pymongo = "*"
 "jinja2" = "*"
 eve = "*"
+dash = "==0.22.0"
+dash-renderer = "==0.13.0"
+dash-html-components = "==0.11.0"
+dash-core-components = "==0.26.0"
+plotly = "*"
 
 [dev-packages]
 "autopep8" = "*"

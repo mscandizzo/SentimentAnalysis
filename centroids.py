@@ -1,6 +1,7 @@
 import numpy as np
 import seaborn as sns; sns.set()
 from copy import deepcopy
+from collections import OrderedDict
 import plotly.plotly as py
 from plotly.offline import init_notebook_mode, iplot
 from IPython.display import display, HTML
@@ -58,12 +59,14 @@ def looping_centroids(vectores, centroids,max_iteractions=5000,printing=False):
     return movimiento 
 
 
-def run_process(k):
+def run_process():
     vectores, colores, k= create_sample()
     centroids = get_random_centroids(vectores,k)
     closest = get_nearest_centroid_for_all_points(vectores,centroids)
     movimiento =looping_centroids(vectores,centroids)
-    visualize(vectores,colores,movimiento)
+    dictfinal,mydict = vectorizar(movimiento)
+
+    return dictfinal, mydict
 
 def bordes(movimiento,gap=2):
     minix = 0
@@ -82,6 +85,17 @@ def bordes(movimiento,gap=2):
             
     return minix-2,maxix+2,miniy-2,maxiy+2
     
+def vectorizar(movimiento):
+    mydict = OrderedDict()
+    for i in range(len(movimiento)):
+        xvector = movimiento[i][:,0]
+        yvector = movimiento[i][:,1]
+        mydict[str(i)] = (xvector,yvector)
+
+    dictfinal = list(mydict.items())
+    
+    return dictfinal,mydict
+
 def visualize(vectores,colores,movimiento):
     init_notebook_mode(connected=True)
 

@@ -43,6 +43,9 @@ def search_field(field=None,collection=None,**kwargs):
     '''
 
     conn = get_mongo_db(**kwargs)[collection]
-    return list(conn.find({},{field:1,"_id":0}))
+
+    lista = list(conn.find({}, {field: 1, "_id": 0}))
+    
+    return lista
 
 
